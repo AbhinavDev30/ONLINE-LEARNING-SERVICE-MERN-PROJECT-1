@@ -1,0 +1,36 @@
+.section-analytics {
+  margin: 9.6rem 0;
+
+  & .container {
+    background-color: var(--bg-color);
+    border-radius: 1rem;
+    display: grid;
+    grid-template-columns: repeat(
+      4,
+      1fr
+    ); /* Adjust to the number of columns you want */
+  }
+
+  & .grid {
+    /* color: var(--dark-color); */
+    color: rgb(23, 21, 21);
+
+    & .div1 {
+      text-align: center;
+      border-right: 0.2rem solid black;
+      /* var(--dark-color); */
+
+      &:last-child {
+        border: none;
+      }
+
+      & h2 {
+        font-size: 4.8rem;
+      }
+
+      & p {
+        text-transform: capitalize;
+      }
+    }
+  }
+}
