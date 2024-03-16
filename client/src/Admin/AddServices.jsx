@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 function AddServices() {
-  const [contact, setContact] = useState({
+  const [services, setServices] = useState({
     name: "",
     description: "",
-    detailDesctiption: "",
     skills: "",
-    price: "",
-    image: "",
     provider: "",
+    image: undefined,
+    price: "",
+    detailDescription: "",
   });
 
   const handleSubmit = (e) => {
@@ -16,11 +16,41 @@ function AddServices() {
   };
 
   const handleInput = (e) => {
-    setContact({
-      ...contact,
+    setServices({
+      ...services,
       [e.target.name]: e.target.value,
     });
   };
+
+  function postServices() {
+    const formData = new FormData();
+    formData.append("name", services.name);
+    formData.append("description", services.description);
+    formData.append("skills", services.skills);
+    formData.append("provider", services.provider);
+    formData.append("image", services.image);
+    formData.append("price", services.price);
+    formData.append("detailDescription", services.detailDescription);
+
+    fetch("http://localhost:5000/serviceDataImg", {
+      method: "POST",
+      headers: {
+        // "Content-Type": "multipart/form-data",
+      },
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          alert("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((res) => {
+        alert("Data Submission Success", res);
+      });
+  }
+
+  //
 
   return (
     <>
@@ -31,7 +61,11 @@ function AddServices() {
 
         <div className="container grid grid-two-cols">
           <div className="contact-img">
-            <img src="/images/support.png" alt="we are always ready to help" />
+            <img
+              src="/images/support.png"
+              alt="we are always ready to help"
+              height="300%"
+            />
           </div>
 
           <section className="section-form">
@@ -44,6 +78,7 @@ function AddServices() {
                   name="name"
                   id="name"
                   autoComplete="off"
+                  value={services.name}
                   onChange={handleInput}
                   required
                 />
@@ -56,6 +91,7 @@ function AddServices() {
                   name="description"
                   id="email"
                   autoComplete="off"
+                  value={services.description}
                   onChange={handleInput}
                   required
                 />
@@ -67,6 +103,7 @@ function AddServices() {
                   name="skills"
                   id="skills"
                   autoComplete="off"
+                  value={services.skills}
                   onChange={handleInput}
                   required
                 />
@@ -78,6 +115,7 @@ function AddServices() {
                   name="provider"
                   id="provider"
                   autoComplete="off"
+                  value={services.provider}
                   onChange={handleInput}
                   required
                 />
@@ -88,7 +126,10 @@ function AddServices() {
                   type="file"
                   name="image"
                   id="image"
-                  onChange={handleInput}
+                  onChange={(e) => {
+                    const file = e.target.files[0]; // Get the first file from the FileList
+                    setServices({ ...services, image: file });
+                  }}
                   required
                 />
               </div>
@@ -96,10 +137,11 @@ function AddServices() {
               <div>
                 <label htmlFor="price">Price</label>
                 <input
-                  type="price"
+                  type="number"
                   name="price"
                   id="price"
                   autoComplete="off"
+                  value={services.price}
                   onChange={handleInput}
                   required
                 />
@@ -109,8 +151,10 @@ function AddServices() {
                 <label htmlFor="detailDescription">Detailed Description</label>
                 <textarea
                   name="detailDescription"
+                  type="text"
                   id="detailDescription"
                   autoComplete="off"
+                  value={services.detailDescription}
                   onChange={handleInput}
                   required
                   cols="30"
@@ -119,7 +163,14 @@ function AddServices() {
               </div>
 
               <div>
-                <button type="submit">submit</button>
+                <button
+                  type="submit"
+                  onClick={() => {
+                    postServices();
+                  }}
+                >
+                  submit
+                </button>
               </div>
             </form>
           </section>

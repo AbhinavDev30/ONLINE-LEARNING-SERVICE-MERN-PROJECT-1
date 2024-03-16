@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function Service() {
   const [services, setServices] = useState([]);
@@ -6,15 +6,12 @@ function Service() {
   useEffect(() => {
     const getServicesData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/data/services",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch("http://localhost:5000/serviceData", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         if (response.ok) {
           const serviceData = await response.json();

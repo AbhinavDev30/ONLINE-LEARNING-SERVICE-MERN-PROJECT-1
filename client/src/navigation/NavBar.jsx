@@ -24,6 +24,9 @@ function NavBar() {
                 <NavLink to="/service"> Services </NavLink>
               </li>
               <li>
+                <NavLink to="/addService"> Add Services </NavLink>
+              </li>
+              <li>
                 <NavLink to="/contact"> Contact </NavLink>
               </li>
               {isLoggedIn ? (
