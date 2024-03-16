@@ -1,20 +1,22 @@
-import { MongoClient } from "mongodb";
+// Not Used
 
-const url = "mongodb://localhost:27017";
-const client = new MongoClient(url);
+// import { MongoClient } from "mongodb";
 
-export async function getDatabase() {
-  try {
-    await client.connect();
-    const db = client.db("DB_CourseBuyProj");
-    const collection = db.collection("services");
-    const res = await collection.findOne({}).toArray();
-    console.log(res);
-  } catch (error) {
-    console.error("Error retrieving data from MongoDB:", error);
-  } finally {
-    await client.close();
-  }
-}
+// const url = "mongodb://localhost:27017";
+// const client = new MongoClient(url);
 
-getDatabase();
+// export async function getDatabase() {
+//   try {
+//     await client.connect();
+//     const db = client.db("DB_CourseBuyProj");
+//     const collection = db.collection("services");
+//     const res = await collection.findOne({}).toArray();
+//     console.log(res);
+//   } catch (error) {
+//     console.error("Error retrieving data from MongoDB:", error);
+//   } finally {
+//     await client.close();
+//   }
+// }
+
+// getDatabase();
