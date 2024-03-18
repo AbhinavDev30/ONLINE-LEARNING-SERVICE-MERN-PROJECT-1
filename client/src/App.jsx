@@ -10,6 +10,7 @@ import PageNotFound from "./component/pageNotFound/PageNotFound";
 import Footer from "./component/footer/Footer";
 import Logout from "./component/logout/Logout";
 import AddServices from "./Admin/AddServices";
+import ServeDe from "./serveD/ServeDe";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/serveDetail" element={<ServeDe />} />
         </Routes>
         <Footer />
       </BrowserRouter>

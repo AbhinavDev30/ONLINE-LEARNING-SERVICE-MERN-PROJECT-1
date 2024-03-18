@@ -6,7 +6,11 @@ import mongoose from "mongoose";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 // import contactRouter from "./router/contactRouter.js";
 import cors from "cors";
-import { getService, saveService } from "./controller/serveController.js";
+import {
+  ServiceDetails,
+  getService,
+  saveService,
+} from "./controller/serveController.js";
 import multer from "multer";
 
 // import { getDatabase } from "./Database/Database.js";
@@ -42,6 +46,8 @@ app.use("/api/user", userRoutes);
 
 app.get("/serviceData", getService);
 
+app.get("/serviceDetail", ServiceDetails);
+
 //Service routing
 const storageServe = multer.diskStorage({
   destination: "uploadServ/",
@@ -52,7 +58,6 @@ const storageServe = multer.diskStorage({
 
 const uploadServ = multer({ storage: storageServe });
 
-// Ensure Multer middleware is placed before the route handler
 app.post("/serviceDataImg", uploadServ.single("image"), saveService);
 
 // app.use("/api/form", contactRouter);

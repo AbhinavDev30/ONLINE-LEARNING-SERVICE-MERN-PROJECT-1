@@ -1,3 +1,4 @@
+//Still in process of building
 import Service from "../model/servicesSchema.js";
 
 export const getService = async (req, res) => {
@@ -83,6 +84,7 @@ export const getService = async (req, res) => {
 
 export const saveService = async (req, res) => {
   console.log(req.body);
+  console.log(req.file);
   try {
     // Ensure that both req.body and req.file are present
     if (!req.body || !req.file || !req.file.filename) {
@@ -115,5 +117,23 @@ export const saveService = async (req, res) => {
   } catch (error) {
     console.error("Error saving service:", error);
     return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const ServiceDetails = async (req, res) => {
+  console.log("hello");
+  console.log(req.query.id);
+  try {
+    // console.log(req.query.id);
+    const getServiceDetail = await Service.findOne({
+      _id: req.query.id,
+    });
+    console.log(
+      "This is data from the server of Service detail",
+      getServiceDetail
+    );
+    res.status(200).send({ getServiceDetail });
+  } catch (e) {
+    res.status(404).send({ error: e?.message });
   }
 };
